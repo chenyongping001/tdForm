@@ -1,0 +1,15 @@
+{
+  "pages":[
+    "pages/tempIntoAdd/tempIntoAdd",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "TD表单",
+    "navigationBarBackgroundColor": "#EDEDED",
+    "backgroundColor": "#EDEDED"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
