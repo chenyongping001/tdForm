@@ -1,0 +1,147 @@
+<page-meta root-font-size="system" />
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="weui-form">
+    <form bindsubmit="formSubmit">
+      <view class="weui-form__text-area">
+        <h2 class="weui-form__title">临时入厂申报</h2>
+        <view class="weui-form__desc">必须上传包含身份证、健康码、行程轨迹截图的附件资料。14天内有外省经历人员还需提供核酸检测报告</view>
+      </view>
+      <view class="weui-form__control-area">
+        <view class="weui-cells__group weui-cells__group_form">
+          <view class="weui-cells__title">临时入厂人员</view>
+          <view class="weui-cells weui-cells_form">
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd"><label class="weui-label">* 姓名</label></view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="填写入厂人员姓名" placeholder-class="weui-input__placeholder" bindinput="onNameInput" value="{{name}}" name="name"/>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                <label class="weui-label">* 身份证</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="填写入厂人员身份证号码" type="idcard" placeholder-class="weui-input__placeholder" bindinput="onIdcardInput" value="{{idcard}}" name="idcard" />
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+              <view class="weui-cell__hd">
+                <label class="weui-label" style="width: 6em">* 是否绿码</label>
+              </view>
+              <view class="weui-cell__bd">
+                <picker aria-role="combobox" bindchange="bindHealthChange" range="{{isHealth}}" name="isHealth">
+                  <view class="weui-select">{{isHealth[healthValue]}}</view>
+                </picker>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+              <view class="weui-cell__hd">
+                <label class="weui-label" style="width: 6em">* 通行期限</label>
+              </view>
+              <view class="weui-cell__bd">
+                <picker aria-role="combobox" bindchange="bindDaysChange" range="{{days}}" name="days">
+                  <view class="weui-select">{{days[daysValue]}}</view>
+                </picker>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+              <view class="weui-cell__hd">
+                <label class="weui-label" style="width: 6em">* 14天内是否有外省经历</label>
+              </view>
+              <view class="weui-cell__bd">
+                <picker aria-role="combobox" bindchange="bindOutProvinceChange" range="{{isOutProvince}}"  name="isOutProvince">
+                  <view class="weui-select">{{isOutProvince[outProvinceValue]}}</view>
+                </picker>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd"><label class="weui-label">* 单位</label></view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="填写外包单位" placeholder-class="weui-input__placeholder" name="outCompany" bindinput="onOutcompanyInput" value="{{outCompany}}"/>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd"><label class="weui-label">电厂项目</label></view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="填写电厂工作的项目" placeholder-class="weui-input__placeholder" name="project" bindinput="onProjectInput" value="{{project}}"/>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd"><label class="weui-label">入厂理由</label></view>
+              <view class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="填写入厂理由" placeholder-class="weui-input__placeholder"  name="reason" bindinput="onReasonInput" value="{{reason}}"/>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd"><label class="weui-label">备注</label></view>
+              <view class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="填写备注信息" placeholder-class="weui-input__placeholder"  name="note" bindinput="onNoteInput" value="{{note}}"/>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="weui-cells__group weui-cells__group_form">
+          <view class="weui-cells__title">电厂联系人</view>
+          <view class="weui-cells weui-cells_form">
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd"><label class="weui-label">* 姓名</label></view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="填写电厂联系人姓名" placeholder-class="weui-input__placeholder" name="contact" bindinput="onContactInput" value="{{contact}}"/>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                <label class="weui-label">* 手机</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" type="number" placeholder="填写电厂联系人手机号码" type="number" placeholder-class="weui-input__placeholder"  name="contactPhone" bindinput="onContactphoneInput" value="{{contactPhone}}"/>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="weui-cells__group weui-cells__group_form">
+          <view class="weui-cells__title">健康码、行程卡、身份证、核酸证明等附件({{files.length}})</view>
+          <view class="weui-cells weui-cells_form">
+            <view class="weui-cell weui-cell_uploader">
+              <view class="weui-cell__bd">
+                <view class="weui-uploader">
+                  <view class="weui-uploader__bd">
+                    <view class="weui-uploader__files" id="uploaderFiles">
+                      <block wx:for="{{files}}" wx:key="*this">
+                        <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                          <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                        </view>
+                      </block>
+                    </view>
+                    <view class="weui-uploader__input-box">
+                      <view aria-role="button" aria-label="上传" class="weui-uploader__input" bindtap="chooseImage"></view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+
+          </view>
+        </view>
+
+      </view>
+      <view class="weui-form__opr-area">
+        <button form-type="submit" class="weui-btn weui-btn_primary">确定</button>
+      </view>
+      <view class="weui-form__extra-area">
+        <view class="weui-footer">
+          <view class="weui-footer__text">Copyright © 2021 chenyongping</view>
+        </view>
+      </view>
+    </form>
+  </view>
+</view>
