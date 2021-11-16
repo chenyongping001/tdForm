@@ -12,5 +12,10 @@ class TempIntoViewSet(viewsets.ModelViewSet):
 
 
 class TempintoFileViewSet(viewsets.ModelViewSet):
-    queryset = TempintoFile.objects.all()
     serializer_class = TempintoFileSerializer
+
+    def get_queryset(self):
+        return TempintoFile.objects.filter(tempinto_id=self.kwargs['tempinto_pk'])
+
+    def get_serializer_context(self):
+        return {'tempinto_id': self.kwargs['tempinto_pk']}

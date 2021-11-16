@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-(fb5hq(+jq$5n%^v%j*ff#m!2jg)75%+lu_or*ln!_)bwz@jw*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '10.160.128.33', 'www.tzpp.org']
 
 
 # Application definition
@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'tdform',  # 数据库名，先前创建的
         'USER': 'root',     # 用户名，可以自己创建用户
         'PASSWORD': 'abcd1234',  # 密码
-        'HOST': '10.160.128.33',  # mysql服务所在的主机ip
+        'HOST': 'localhost',  # mysql服务所在的主机ip
         'PORT': '3306',         # mysql服务端口
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
@@ -133,4 +133,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
 MEDIA_URL = "/uploads/"
+USE_X_FORWARDED_HOST = True
+# FORCE_SCRIPT_NAME = "/tdform"

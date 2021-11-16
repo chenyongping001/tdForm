@@ -28,13 +28,14 @@ class TempInto(models.Model):
     outProvinceValue = models.PositiveSmallIntegerField(
         choices=OUT_PROVINCE_CHOICE, default=0)
     outCompany = models.CharField(max_length=255)
-    project = models.CharField(max_length=255, null=True)
-    reason = models.TextField(null=True)
-    note = models.TextField(null=True)
+    project = models.CharField(max_length=255, null=True, blank=True)
+    reason = models.TextField(null=True, blank=True)
+    note = models.TextField(null=True, blank=True)
     contact = models.CharField(max_length=10)
     contactPhone = models.CharField(max_length=11)
     createtime = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=255, default="待处理")
 
 
 class TempintoFile(models.Model):
