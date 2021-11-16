@@ -35,7 +35,7 @@ class TempInto(models.Model):
     contactPhone = models.CharField(max_length=11)
     createtime = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=255, default="待处理")
+    status = models.CharField(max_length=255, default="unconfirmed")
 
 
 class TempintoFile(models.Model):
