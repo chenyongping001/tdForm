@@ -17,6 +17,13 @@ class TempInto(models.Model):
         (0, '未出过省'),
         (1, '出过省'),
     ]
+    STATUS_CHOICE = [
+        (0, '待处理'),
+        (1, '找不到对应联系人'),
+        (2, '已提交审批流程'),
+        (3, '通过'),
+        (4, '拒绝'),
+    ]
 
     weixinID = models.CharField(max_length=255)
     name = models.CharField(max_length=10)
@@ -29,16 +36,16 @@ class TempInto(models.Model):
         choices=OUT_PROVINCE_CHOICE, default=0)
     outCompany = models.CharField(max_length=255)
     project = models.CharField(max_length=255, null=True, blank=True)
-    reason = models.TextField(null=True, blank=True)
+    reason = models.TextField()
     note = models.TextField(null=True, blank=True)
     contact = models.CharField(max_length=10)
     contactPhone = models.CharField(max_length=11)
     createtime = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=255, default="unconfirmed")
+    status = models.PositiveSmallIntegerField(
+        choices=STATUS_CHOICE, default=0)
 
 
 class TempintoFile(models.Model):
-    name = models.CharField(max_length=255)
     file = models.ImageField(upload_to='covid19/')
     tempinto = models.ForeignKey(TempInto, on_delete=models.CASCADE)

@@ -22,29 +22,45 @@ Page({
     daysValue: 0,
     outProvinceValue: 0,
   },
-  onNameInput(e){
-    this.setData({name:e.detail.value})
+  onNameInput(e) {
+    this.setData({
+      name: e.detail.value
+    })
   },
-  onIdcardInput(e){
-    this.setData({idcard:e.detail.value})
+  onIdcardInput(e) {
+    this.setData({
+      idcard: e.detail.value
+    })
   },
-  onOutcompanyInput(e){
-    this.setData({outCompany:e.detail.value})
+  onOutcompanyInput(e) {
+    this.setData({
+      outCompany: e.detail.value
+    })
   },
-  onProjectInput(e){
-    this.setData({project:e.detail.value})
+  onProjectInput(e) {
+    this.setData({
+      project: e.detail.value
+    })
   },
-  onReasonInput(e){
-    this.setData({reason:e.detail.value})
+  onReasonInput(e) {
+    this.setData({
+      reason: e.detail.value
+    })
   },
-  onNoteInput(e){
-    this.setData({note:e.detail.value})
+  onNoteInput(e) {
+    this.setData({
+      note: e.detail.value
+    })
   },
-  onContactInput(e){
-    this.setData({contact:e.detail.value})
+  onContactInput(e) {
+    this.setData({
+      contact: e.detail.value
+    })
   },
-  onContactphoneInput(e){
-    this.setData({contactPhone:e.detail.value})
+  onContactphoneInput(e) {
+    this.setData({
+      contactPhone: e.detail.value
+    })
   },
   chooseImage: function (e) {
     var that = this;
@@ -100,6 +116,9 @@ Page({
       outCompany: {
         required: true,
       },
+      reason: {
+        required: true,
+      },
       contact: {
         required: true,
         maxlength: 10
@@ -120,6 +139,9 @@ Page({
       outCompany: {
         required: "请输入外包单位名称",
       },
+      reason: {
+        required: "请输入入厂理由",
+      },
       contact: {
         required: "请输入电厂联系人姓名",
         maxlength: "请输入正确的电厂联系人姓名"
@@ -130,9 +152,7 @@ Page({
     }
     this.wxValidate = new WxValidate(rules, messages)
   },
-
-  formSubmit(e) {
-    console.log(this.data)
+  formValidate(e) {
     const params = e.detail.value
     // 传入表单数据，调用验证方法
     if (!this.wxValidate.checkForm(params)) {
@@ -160,6 +180,66 @@ Page({
       })
       return false
     }
+    return true
+  },
+  formSubmit(e) {
+    const that = this
+    if (!this.formValidate(e))
+      return false
+    wx.request({
+      url: 'https://www.tzpp.org/tdform/covidform/tempintos/', //仅为示例，并非真实的接口地址
+      data: {
+        weixinID: "test001",
+        name: this.data.name,
+        iccard: this.data.idcard,
+        healthValue: this.data.healthValue,
+        daysValue: this.data.daysValue,
+        outProvinceValue: this.data.outProvinceValue,
+        outCompany: this.data.outCompany,
+        project: this.data.project,
+        reason: this.data.reason,
+        note: this.data.note,
+        contact: this.data.contact,
+        contactPhone: this.data.contactPhone,
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: "POST",
+      success(res) {
+        if (res.statusCode === 201) {
+          const id = res.data.id
+          const files = that.data.files
+          const length = files.length
+          const errorNum = 0
+          for (let i = 0; i < length; i++) {
+            wx.uploadFile({
+              filePath: that.data.files[i],
+              name: 'file',
+              url: 'https://www.tzpp.org/tdform/covidform/tempintos/' + res.data.id + '/files/',
+              success(res) {
+                if (res.statusCode !== 201)
+                  errorNum++
+              },
+              fail(res) {
+                errorNum++
+              }
+            })
+          }
+          if (errorNum > 0) {
+            wx.showModal({
+              title: '提示',
+              content: '有'+errorNum+'个附件上传错误',
+            })
+            return false
+          }
+          wx.navigateTo({
+            url: '/pages/index/index',
+          })
+        }
+      },
+    })
+
 
   },
   /**

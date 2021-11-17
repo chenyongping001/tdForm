@@ -11,7 +11,7 @@ class TempIntoSerializer(serializers.ModelSerializer):
 class TempintoFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = TempintoFile
-        fields = '__all__'
+        fields = ['file']
 
     def create(self, validated_data):
         tempinto_id = self.context['tempinto_id']

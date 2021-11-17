@@ -73,7 +73,7 @@
             </view>
 
             <view class="weui-cell weui-cell_active">
-              <view class="weui-cell__hd"><label class="weui-label">入厂理由</label></view>
+              <view class="weui-cell__hd"><label class="weui-label">* 入厂理由</label></view>
               <view class="weui-cell__bd">
                 <textarea class="weui-textarea" placeholder="填写入厂理由" placeholder-class="weui-input__placeholder"  name="reason" bindinput="onReasonInput" value="{{reason}}"/>
               </view>
