@@ -1,5 +1,5 @@
 <page-meta root-font-size="system" />
-<view class="page" data-weui-theme="{{theme}}">
+<view  class="page" data-weui-theme="{{theme}}"> 
   <view class="weui-form">
     <form bindsubmit="formSubmit">
       <view class="weui-form__text-area">
@@ -141,7 +141,11 @@
         <view class="weui-footer">
           <view class="weui-footer__text">Copyright © 2021 chenyongping</view>
         </view>
+        <view class="weui-form__extra-area">
+        </view>
       </view>
     </form>
   </view>
 </view>
+
+<include src="/pages/bottomMenu/buttomMenu" />

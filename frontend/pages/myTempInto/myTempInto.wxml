@@ -1,0 +1,53 @@
+<!--pages/myTempInto/myTempInto.wxml-->
+<page-meta root-font-size="system" />
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="page__hd">
+    <view class="page__title">表单浏览</view>
+    <!-- <view class="page__desc">表单预览</view> -->
+  </view>
+  <view class="page__bd">
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__hd" aria-role="option">
+        <view class="weui-form-preview__item">
+          <label class="weui-form-preview__label">状态</label>
+          <em class="weui-form-preview__value">待处理</em>
+        </view>
+      </view>
+      <view aria-labelledby="p1 js_a11y_comma p2 js_a11y_comma p3" class="weui-form-preview__bd" aria-role="option">
+        <view  class="weui-form-preview__item">
+          <label class="weui-form-preview__label">入厂人员</label>
+          <text class="weui-form-preview__value">王阿三</text>
+        </view>
+        <view  class="weui-form-preview__item">
+          <label class="weui-form-preview__label">身份证号码</label>
+          <text class="weui-form-preview__value">332601199302131129</text>
+        </view>
+        <view  class="weui-form-preview__item">
+          <label class="weui-form-preview__label">外包单位</label>
+          <text class="weui-form-preview__value">浙江浙能技术研究院</text>
+        </view>
+        <view  class="weui-form-preview__item">
+          <label class="weui-form-preview__label">入厂理由</label>
+          <text class="weui-form-preview__value">浙江浙能技术研究院进厂做性能试验浙江浙能技术研究院进厂做性能试验浙江浙能技术研究院进厂做性能试验浙江浙能技术研究院进厂做性能试验</text>
+        </view>
+        <view  class="weui-form-preview__item">
+          <label class="weui-form-preview__label">电厂联系人</label>
+          <text class="weui-form-preview__value">李昌志</text>
+        </view>
+        <view  class="weui-form-preview__item">
+          <label class="weui-form-preview__label">联系电话</label>
+          <text class="weui-form-preview__value">13857673990</text>
+        </view>
+      </view>
+      <view class="weui-form-preview__ft">
+        <view class="weui-form-preview__btn weui-form-preview__btn_primary" >删除</view>
+      </view>
+
+    </view>
+  </view>
+  <view class="page__hd">
+    <view class="page__title" />
+  </view>
+</view>
+
+<include src="/pages/bottomMenu/buttomMenu" />

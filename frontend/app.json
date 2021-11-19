@@ -1,7 +1,10 @@
 {
   "pages":[
     "pages/tempIntoAdd/tempIntoAdd",
+    "pages/load/load",
+    "pages/myTempInto/myTempInto",
     "pages/index/index",
+    "pages/bottomMenu/buttomMenu",
     "pages/logs/logs"
   ],
   "window":{

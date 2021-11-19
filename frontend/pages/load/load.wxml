@@ -1,0 +1,19 @@
+<!--pages/load/load.wxml-->
+
+<page-meta root-font-size="system"/>
+<view class="page" data-weui-theme="{{theme}}">
+    <view class="page__hd">
+        <view class="page__title">欢迎您</view>
+        <view class="page__desc">欢迎使用小程序，我们需要一些您的公开信息，包括微信昵称、头像等。另外需要获取微信ID，用于识别绑定您提交的单据。请放心，我们会妥善保管您的信息。</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-btn-area">
+            <view aria-role="button" class="weui-btn weui-btn_default">
+              <view  bindtap="getUserProfile">立即授权</view>
+            </view>
+            <view aria-role="button" class="weui-btn weui-btn_default">
+              <view  bindtap="getUserProfile">立即授权</view>
+            </view>
+        </view>
+    </view>
+</view>

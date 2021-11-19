@@ -6,6 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    formTabTextCol: "darkseagreen",
+    userTabTextCol: "#000000",
+    session: null,
+    ////////////////////////////////////////////
     name: "",
     idcard: "",
     outCompany: "",
@@ -22,6 +26,12 @@ Page({
     daysValue: 0,
     outProvinceValue: 0,
   },
+  userTabSelect(e) {
+    wx.redirectTo({
+      url: '/pages/myTempInto/myTempInto',
+    })
+  },
+  formTabSelect(e) {},
   onNameInput(e) {
     this.setData({
       name: e.detail.value
@@ -102,6 +112,7 @@ Page({
    */
   onLoad: function (options) {
     this.initValidate()
+    this.getSession()
   },
   initValidate() {
     const rules = {
@@ -182,14 +193,59 @@ Page({
     }
     return true
   },
+  getSessionFromServer() {
+    
+  },
+
+  getSession() {
+    const that = this
+    let now = +new Date()
+    const app = getApp()
+    if (app.globalData.sessionId && (now <= app.globalData.expiredTime)) {
+      this.setData(
+        {session:app.globalData.sessionId}
+      )
+      return
+    }
+    wx.login({
+      success: res => {
+        if (res.code) {
+          wx.request({
+            url: 'https://www.tzpp.org/tdform/wxauth/' + res.code,
+            success: function (res) {
+              if (res.statusCode === 200) {
+                let session = res.data.session
+                app.globalData.sessionId = session
+                wx.setStorageSync('SESSIONID', session)
+                // 假设登录态保持1天
+                let expiredTime = +new Date() + 1 * 24 * 60 * 60 * 1000
+                app.globalData.expiredTime = expiredTime
+                wx.setStorageSync('EXPIREDTIME', expiredTime)
+                console.log("request得到", session)
+                that.setData({
+                  session: session
+                })
+              }
+            }
+          })
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
+      },
+    })
+  },
+
   formSubmit(e) {
     const that = this
     if (!this.formValidate(e))
       return false
+    if (!this.data.session) {
+      return false
+    }
     wx.request({
-      url: 'https://www.tzpp.org/tdform/covidform/tempintos/', //仅为示例，并非真实的接口地址
+      url: 'https://www.tzpp.org/tdform/covidform/tempintos/',
       data: {
-        weixinID: "test001",
+        weixinID: this.data.session,
         name: this.data.name,
         iccard: this.data.idcard,
         healthValue: this.data.healthValue,
@@ -229,12 +285,12 @@ Page({
           if (errorNum > 0) {
             wx.showModal({
               title: '提示',
-              content: '有'+errorNum+'个附件上传错误',
+              content: '有' + errorNum + '个附件上传错误',
             })
             return false
           }
-          wx.navigateTo({
-            url: '/pages/index/index',
+          wx.redirectTo({
+            url: '/pages/myTempInto/myTempInto',
           })
         }
       },

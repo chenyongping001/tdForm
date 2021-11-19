@@ -20,9 +20,11 @@ class TempInto(models.Model):
     STATUS_CHOICE = [
         (0, '待处理'),
         (1, '找不到对应联系人'),
-        (2, '已提交审批流程'),
-        (3, '通过'),
-        (4, '拒绝'),
+        (2, '已生成申请单'),
+        (3, '审批中'),
+        (4, '通过'),
+        (5, '拒绝'),
+        (6, '已删除'),
     ]
 
     weixinID = models.CharField(max_length=255)

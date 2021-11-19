@@ -1,0 +1,11 @@
+<!--pages/bottomMenu/buttonMenu.wxml-->
+<view class="weui-tabbar">
+  <view class="weui-tabbar__item" bindtap="formTabSelect">
+    <image src="/images/form.png" alt class="weui-tabbar__icon"></image>
+    <view class="weui-tabbar__label" style="color:{{formTabTextCol}};font-size: 26rpx;">表单</view>
+  </view>
+  <view class="weui-tabbar__item" bindtap="userTabSelect">
+    <image src="/images/user.png" alt class="weui-tabbar__icon"></image>
+    <view class="weui-tabbar__label" style="color:{{userTabTextCol}};font-size: 26rpx;">我</view>
+  </view>
+</view>

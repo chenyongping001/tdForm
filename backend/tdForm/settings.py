@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'covidform',
+    'wxauth',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +137,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
 MEDIA_URL = "/uploads/"
 USE_X_FORWARDED_HOST = True
-# FORCE_SCRIPT_NAME = "/tdform"
+FORCE_SCRIPT_NAME = "/tdform"
+
+
+# weixin mini_program appid and secret_key
+WX_MINIPROGRAM_APPID = "wx85866e42404b30a3"
+WX_MINIPROGRAM_SECRET_KEY = "a632b12377796630d9a873764a3edc6c"
