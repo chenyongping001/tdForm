@@ -1,8 +1,10 @@
 {
   "pages":[
-    "pages/tempIntoAdd/tempIntoAdd",
     "pages/load/load",
+    "pages/privacyPolicy/privacyPolicy",
+    "pages/userAgree/userAgree",
     "pages/myTempInto/myTempInto",
+    "pages/tempIntoAdd/tempIntoAdd",
     "pages/index/index",
     "pages/bottomMenu/buttomMenu",
     "pages/logs/logs"

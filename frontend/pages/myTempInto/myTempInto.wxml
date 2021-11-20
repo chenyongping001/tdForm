@@ -12,7 +12,7 @@
         <view class="weui-form-preview__hd" aria-role="option">
           <view class="weui-form-preview__item">
             <label class="weui-form-preview__label">状态</label>
-            <em class="weui-form-preview__value">{{status[item.status]}}</em>
+            <em class="weui-form-preview__value" style="color:{{statusColor[item.status]}}">{{status[item.status]}}</em>
           </view>
         </view>
         <view class="weui-form-preview__bd">

@@ -1,32 +1,24 @@
-// pages/load/load.js
-var app = getApp();
+// pages/privacyPolicy/privacyPolicy.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
-    hasUserInfo: false,
-    canIUseGetUserProfile: false,
-    canEnter:false
+
+  },
+  return(e){
+    wx.navigateBack({
+      delta: 1,
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
   },
 
-  checkAgree(e){
-    this.setData({
-      canEnter:!this.data.canEnter
-    })
-  },
-
-  enter(e){
-    wx.redirectTo({
-      url: '/pages/tempIntoAdd/tempIntoAdd'
-    })
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -1,6 +1,7 @@
 from django.urls import path
 from django.urls.conf import include
 from rest_framework_nested import routers
+from . import views
 from .views import TempIntoViewSet, TempintoFileViewSet
 
 router = routers.DefaultRouter()

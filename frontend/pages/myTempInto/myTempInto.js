@@ -10,6 +10,7 @@ Page({
     tempintoList: [],
     session: getApp().globalData.sessionId,
     status: ['待处理', '找不到对应联系人', '已生成申请单', '审批中', '通过', '拒绝', '已删除'],
+    statusColor: ['rgb(165, 82, 10', 'red', 'midnightblue', 'midnightblue', 'lightseagreen', 'red', 'red']
   },
   userTabSelect(e) {},
   formTabSelect(e) {
@@ -53,9 +54,30 @@ Page({
 
   },
 
-  onDelete:function(e){
-    console.log(e)
-    let id = e.currentTarget.dataset.id
+  onDelete: function (e) {
+    const that = this
+    wx.showModal({
+      title: '警告',
+      content: '您确定要删除这条申报单吧',
+      success(res) {
+        if (res.confirm) {
+          let id = e.currentTarget.dataset.id
+          wx.request({
+            url: 'https://www.tzpp.org/tdform/covidform/tempintos/' + id,
+            method: 'DELETE',
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success(res) {
+              const list = that.data.tempintoList.filter(item => item.id != id)
+              that.setData({
+                tempintoList: list
+              })
+            }
+          })
+        } else if (res.cancel) {}
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
