@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(fb5hq(+jq$5n%^v%j*ff#m!2jg)75%+lu_or*ln!_)bwz@jw*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '10.160.128.33', '10.150.182.3', 'www.tzpp.org']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -141,5 +141,8 @@ FORCE_SCRIPT_NAME = "/tdform"
 
 
 # weixin mini_program appid and secret_key
-WX_MINIPROGRAM_APPID = "wx85866e42404b30a3"
-WX_MINIPROGRAM_SECRET_KEY = "a632b12377796630d9a873764a3edc6c"
+WX_MINIPROGRAM_APPID = "wxbacf908e48b34c1e"
+WX_MINIPROGRAM_SECRET_KEY = "6fbe861c7b6aef8c4e5d07e45331ba26"
+
+##
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
