@@ -1,4 +1,5 @@
 // pages/myTempInto/myTempInto.js
+const app = getApp()
 Page({
 
   /**
@@ -8,7 +9,6 @@ Page({
     formTabTextCol: "black",
     userTabTextCol: "darkseagreen",
     tempintoList: [],
-    session: getApp().globalData.sessionId,
     status: ['待处理', '找不到对应联系人', '已生成申请单', '审批中', '通过', '拒绝', '已删除'],
     statusColor: ['rgb(165, 82, 10', 'red', 'midnightblue', 'midnightblue', 'lightseagreen', 'red', 'red']
   },
@@ -30,11 +30,19 @@ Page({
         tempintoList: list
       })
     }
-    if (!that.data.session) {
-      return
+    if (app.globalData.session) {
+      that.reDraw(app.globalData.session)
+    } else {
+       app.getSession().then(function (res) {
+         that.reDraw(res)
+      })
     }
+  },
+
+  reDraw(session) {
+    const that=this
     wx.request({
-      url: `${getApp().globalData.BASEURL}/covidform/tempintos/?weixinid=${that.data.session}`,
+      url: `${app.globalData.BASEURL}/covidform/tempintos/?weixinid=${session}`,
       success: function (res) {
         if (res.statusCode === 200) {
           let list = res.data
@@ -42,13 +50,9 @@ Page({
             tempintoList: list
           })
           wx.setStorageSync("TEMPINTOLIST", list) // 覆盖缓存数据
-
         }
-
       }
-
     })
-
   },
 
   onDelete: function (e) {
@@ -60,7 +64,7 @@ Page({
         if (res.confirm) {
           let id = e.currentTarget.dataset.id
           wx.request({
-            url: `${getApp().globalData.BASEURL}/covidform/tempintos/${id}`,
+            url: `${app.globalData.BASEURL}/covidform/tempintos/${id}`,
             method: 'DELETE',
             header: {
               'content-type': 'application/json' // 默认值

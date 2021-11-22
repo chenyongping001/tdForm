@@ -1,5 +1,6 @@
 // pages/tempIntoAdd/tempIntoAdd.js
 import WxValidate from "../../utils/wxValidate"
+const app = getApp()
 Page({
 
   /**
@@ -9,7 +10,6 @@ Page({
     isSending: false,
     formTabTextCol: "darkseagreen",
     userTabTextCol: "#000000",
-    session: getApp().globalData.sessionId,
     ////////////////////////////////////////////
     name: "",
     idcard: "",
@@ -113,29 +113,6 @@ Page({
    */
   onLoad: function (options) {
     this.initValidate()
-    if(this.data.session)return
-    wx.login({
-      success: res => {
-        if (res.code) {
-          wx.request({
-            url: `${getApp().globalData.BASEURL}/wxauth/${res.code}`,
-            success: function (res) {
-              if (res.statusCode === 200) {
-                let session = res.data.session
-                getApp().globalData.sessionId = session
-                wx.setStorageSync('SESSIONID', session)
-                // 假设登录态保持1天
-                let expiredTime = +new Date() + 1 * 24 * 60 * 60 * 1000
-                that.globalData.expiredTime = expiredTime
-                wx.setStorageSync('EXPIREDTIME', expiredTime)
-              }
-            }
-          })
-        } else {
-          console.log('获取用户登录态失败！' + res.errMsg)
-        }
-      },
-    })
   },
   initValidate() {
     const rules = {
@@ -198,7 +175,6 @@ Page({
       })
       return false
     }
-
     const count = this.data.files.length
     let msg = ""
     if (count < 3) {
@@ -221,19 +197,27 @@ Page({
     const that = this
     if (!this.formValidate(e))
       return false
-    if (!this.data.session) {
-      return false
-    }
     this.setData({
       isSending: true
     })
     wx.showLoading({
       title: '提交中...',
     })
+    if (app.globalData.session) {
+      that.submit(app.globalData.session)
+    }
+    else{
+      app.getSession().then(function(res){
+        that.submit(res)
+      })
+    }
+  },
+  submit(session){
+    const that =this
     wx.request({
-      url: `${getApp().globalData.BASEURL}/covidform/tempintos/`,
+      url: `${app.globalData.BASEURL}/covidform/tempintos/`,
       data: {
-        weixinID: this.data.session,
+        weixinID: session,
         name: this.data.name,
         iccard: this.data.idcard,
         healthValue: this.data.healthValue,
@@ -259,7 +243,7 @@ Page({
             wx.uploadFile({
               filePath: that.data.files[i],
               name: 'file',
-              url: `${getApp().globalData.BASEURL}/covidform/tempintos/${id}/files/`,
+              url: `${app.globalData.BASEURL}/covidform/tempintos/${id}/files/`,
               complete(res) {
                 if (i === (length - 1)) {
                   wx.hideLoading()
@@ -286,8 +270,6 @@ Page({
         }
       },
     })
-
-
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
