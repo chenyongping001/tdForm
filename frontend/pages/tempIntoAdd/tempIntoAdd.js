@@ -6,9 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isSending: false,
     formTabTextCol: "darkseagreen",
     userTabTextCol: "#000000",
-    session: null,
+    session: getApp().globalData.sessionId,
     ////////////////////////////////////////////
     name: "",
     idcard: "",
@@ -112,7 +113,29 @@ Page({
    */
   onLoad: function (options) {
     this.initValidate()
-    this.getSession()
+    if(this.data.session)return
+    wx.login({
+      success: res => {
+        if (res.code) {
+          wx.request({
+            url: `${getApp().globalData.BASEURL}/wxauth/${res.code}`,
+            success: function (res) {
+              if (res.statusCode === 200) {
+                let session = res.data.session
+                getApp().globalData.sessionId = session
+                wx.setStorageSync('SESSIONID', session)
+                // 假设登录态保持1天
+                let expiredTime = +new Date() + 1 * 24 * 60 * 60 * 1000
+                that.globalData.expiredTime = expiredTime
+                wx.setStorageSync('EXPIREDTIME', expiredTime)
+              }
+            }
+          })
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
+      },
+    })
   },
   initValidate() {
     const rules = {
@@ -193,47 +216,6 @@ Page({
     }
     return true
   },
-  getSessionFromServer() {
-    
-  },
-
-  getSession() {
-    const that = this
-    let now = +new Date()
-    const app = getApp()
-    if (app.globalData.sessionId && (now <= app.globalData.expiredTime)) {
-      this.setData(
-        {session:app.globalData.sessionId}
-      )
-      return
-    }
-    wx.login({
-      success: res => {
-        if (res.code) {
-          wx.request({
-            url: 'https://www.tzpp.org/tdform/wxauth/' + res.code,
-            success: function (res) {
-              if (res.statusCode === 200) {
-                let session = res.data.session
-                app.globalData.sessionId = session
-                wx.setStorageSync('SESSIONID', session)
-                // 假设登录态保持1天
-                let expiredTime = +new Date() + 1 * 24 * 60 * 60 * 1000
-                app.globalData.expiredTime = expiredTime
-                wx.setStorageSync('EXPIREDTIME', expiredTime)
-                console.log("request得到", session)
-                that.setData({
-                  session: session
-                })
-              }
-            }
-          })
-        } else {
-          console.log('获取用户登录态失败！' + res.errMsg)
-        }
-      },
-    })
-  },
 
   formSubmit(e) {
     const that = this
@@ -242,8 +224,14 @@ Page({
     if (!this.data.session) {
       return false
     }
+    this.setData({
+      isSending: true
+    })
+    wx.showLoading({
+      title: '提交中...',
+    })
     wx.request({
-      url: 'https://www.tzpp.org/tdform/covidform/tempintos/',
+      url: `${getApp().globalData.BASEURL}/covidform/tempintos/`,
       data: {
         weixinID: this.data.session,
         name: this.data.name,
@@ -267,30 +255,33 @@ Page({
           const id = res.data.id
           const files = that.data.files
           const length = files.length
-          const errorNum = 0
           for (let i = 0; i < length; i++) {
             wx.uploadFile({
               filePath: that.data.files[i],
               name: 'file',
-              url: 'https://www.tzpp.org/tdform/covidform/tempintos/' + res.data.id + '/files/',
-              success(res) {
-                if (res.statusCode !== 201)
-                  errorNum++
-              },
-              fail(res) {
-                errorNum++
+              url: `${getApp().globalData.BASEURL}/covidform/tempintos/${id}/files/`,
+              complete(res) {
+                if (i === (length - 1)) {
+                  wx.hideLoading()
+                  that.setData({
+                    isSending: true
+                  })
+                  wx.redirectTo({
+                    url: '/pages/myTempInto/myTempInto',
+                  })
+                }
               }
             })
           }
-          if (errorNum > 0) {
-            wx.showModal({
-              title: '提示',
-              content: '有' + errorNum + '个附件上传错误',
-            })
-            return false
-          }
-          wx.redirectTo({
-            url: '/pages/myTempInto/myTempInto',
+        } else {
+          wx.hideLoading()
+          that.setData({
+            isSending: true
+          })
+          wx.showToast({
+            title: "出错了，请稍后！",
+            icon:"error",
+            duration: 5000
           })
         }
       },
@@ -308,9 +299,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    this.getSession()
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -322,9 +311,7 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-
-  },
+  onUnload: function () {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作

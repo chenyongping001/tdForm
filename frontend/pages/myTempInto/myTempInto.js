@@ -31,13 +31,10 @@ Page({
       })
     }
     if (!that.data.session) {
-      wx.redirectTo({
-        url: '/pages/tempIntoAdd/tempIntoAdd',
-      })
       return
     }
     wx.request({
-      url: 'https://www.tzpp.org/tdform/covidform/tempintos/?weixinid=' + that.data.session,
+      url: `${getApp().globalData.BASEURL}/covidform/tempintos/?weixinid=${that.data.session}`,
       success: function (res) {
         if (res.statusCode === 200) {
           let list = res.data
@@ -63,7 +60,7 @@ Page({
         if (res.confirm) {
           let id = e.currentTarget.dataset.id
           wx.request({
-            url: 'https://www.tzpp.org/tdform/covidform/tempintos/' + id,
+            url: `${getApp().globalData.BASEURL}/covidform/tempintos/${id}`,
             method: 'DELETE',
             header: {
               'content-type': 'application/json' // 默认值

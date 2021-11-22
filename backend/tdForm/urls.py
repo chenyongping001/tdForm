@@ -18,9 +18,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.staticfiles.views import serve
+from django.views.static import serve as static_serve
+from django.urls import re_path
+
+
+def return_static(request, path, insecure=True, **kwargs):
+    return serve(request, path, insecure, **kwargs)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('covidform/', include('covidform.urls')),
     path('wxauth/', include('wxauth.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    re_path(r'^static/(?P<path>.*)$', return_static, name='static'),
+    re_path(r'^uploads/(?P<path>.*)$', static_serve,
+            {'document_root': settings.MEDIA_ROOT}),
+]

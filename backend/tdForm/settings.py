@@ -133,9 +133,14 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
+############
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 MEDIA_URL = "/uploads/"
+############
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+############
 USE_X_FORWARDED_HOST = True
 FORCE_SCRIPT_NAME = "/tdform"
 
@@ -145,4 +150,3 @@ WX_MINIPROGRAM_APPID = "wxbacf908e48b34c1e"
 WX_MINIPROGRAM_SECRET_KEY = "6fbe861c7b6aef8c4e5d07e45331ba26"
 
 ##
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')

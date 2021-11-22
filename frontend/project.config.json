@@ -28,6 +28,7 @@
     "showShadowRootInWxmlPanel": true,
     "packNpmManually": false,
     "enableEngineNative": false,
+    "checkSiteMap":false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
     "showES6CompileOption": false,

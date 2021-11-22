@@ -5,13 +5,11 @@
     "pages/userAgree/userAgree",
     "pages/myTempInto/myTempInto",
     "pages/tempIntoAdd/tempIntoAdd",
-    "pages/index/index",
-    "pages/bottomMenu/buttomMenu",
-    "pages/logs/logs"
+    "pages/bottomMenu/buttomMenu"
   ],
   "window":{
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "TD表单",
+    "navigationBarTitleText": "表单",
     "navigationBarBackgroundColor": "#EDEDED",
     "backgroundColor": "#EDEDED"
   },

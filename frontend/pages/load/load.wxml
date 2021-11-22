@@ -7,7 +7,7 @@
     <view class="weui-msg__icon-area"><text class="weui-icon-waiting weui-icon_msg"></text></view>
     <view class="weui-msg__text-area">
       <h2 class="weui-msg__title">欢迎您</h2>
-      <view class="weui-msg__desc">欢迎使用小程序，本小程序用于本单位与外部交流协作，收集必要的信息用于内部流程对接，方便外来人员办证办事等。根据上级单位及部门有关要求，疫情期间需要查验健康码、行程码、核酸证明等并核对身份信息，杜绝涉疫人员进入本单位。我们会妥善保管您的信息。</view>
+      <view class="weui-msg__desc">欢迎使用小程序，本小程序用于与外部交流协作，收集必要的信息用于内部流程对接。根据要求，疫情期间需要查验健康码、行程码、核酸证明等并核对身份信息，杜绝涉疫人员进入。我们会妥善保管您的信息。</view>
     </view>
     <view class="weui-msg__opr-area">
       <view class="weui-btn-area">
