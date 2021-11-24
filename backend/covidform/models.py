@@ -1,4 +1,5 @@
 from typing import Any
+from django.conf import settings
 from django.db import models
 from rest_framework.response import Response
 
@@ -7,13 +8,13 @@ from rest_framework.response import Response
 
 class TempInto(models.Model):
     HEALTH_CHOICE = [
-        (0, '绿码'),
-        (1, '非绿码')
+        (1, '绿码'),
+        (0, '非绿码')
     ]
     DAYS_CHOICE = [
-        (0, '1天'),
-        (1, '2天'),
-        (2, '3天'),
+        (1, '1天'),
+        (2, '2天'),
+        (3, '3天'),
     ]
     OUT_PROVINCE_CHOICE = [
         (0, '未出过省'),
@@ -33,9 +34,9 @@ class TempInto(models.Model):
     name = models.CharField(max_length=10)
     iccard = models.CharField(max_length=18)
     healthValue = models.PositiveSmallIntegerField(
-        choices=HEALTH_CHOICE, default=0)
+        choices=HEALTH_CHOICE, default=1)
     daysValue = models.PositiveSmallIntegerField(
-        choices=DAYS_CHOICE, default=0)
+        choices=DAYS_CHOICE, default=1)
     outProvinceValue = models.PositiveSmallIntegerField(
         choices=OUT_PROVINCE_CHOICE, default=0)
     outCompany = models.CharField(max_length=255)
@@ -52,4 +53,8 @@ class TempInto(models.Model):
 
 class TempintoFile(models.Model):
     file = models.ImageField(upload_to='covid19/')
-    tempinto = models.ForeignKey(TempInto, on_delete=models.CASCADE)
+    tempinto = models.ForeignKey(
+        TempInto, related_name='files', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return settings.MEDIA_URL+str(self.file)
