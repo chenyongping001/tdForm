@@ -15,7 +15,9 @@ tempinto_router.register("files", TempintoFileViewSet,
 
 urlpatterns = [
     path("", include(router.urls+tempinto_router.urls)),
-    path('qj_tempinto/', views.QJTempinto.as_view(), name='qj_tempinto')
+    path('qj_tempinto/', views.QJTempinto.as_view(), name='qj_tempinto'),
+    path('delete_invalid_files/', views.DeleteInvalidFiles.as_view(),
+         name='delete_invalid_files'),
 ]
 
 # urlpatterns = router.urls+tempinto_router.urls

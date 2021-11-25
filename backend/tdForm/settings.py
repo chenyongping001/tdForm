@@ -140,7 +140,8 @@ MEDIA_URL = "/uploads/"
 ############
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-############
+
+# 正式环境需要启用
 USE_X_FORWARDED_HOST = True
 FORCE_SCRIPT_NAME = "/tdform"
 
@@ -150,3 +151,6 @@ WX_MINIPROGRAM_APPID = "wxbacf908e48b34c1e"
 WX_MINIPROGRAM_SECRET_KEY = "6fbe861c7b6aef8c4e5d07e45331ba26"
 
 ##
+REST_FRAMEWORK = {
+    'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",
+}

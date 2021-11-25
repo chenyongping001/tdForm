@@ -3,6 +3,8 @@ from django.shortcuts import render
 
 # Create your views here.
 import json
+import os
+from pathlib import Path
 from django.forms.models import model_to_dict
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -10,6 +12,7 @@ from rest_framework.views import APIView
 from datetime import datetime, timedelta
 from .models import TempInto, TempintoFile
 from .serializers import TempIntoSerializer, TempintoFileSerializer
+from tdForm.settings import MEDIA_ROOT
 
 
 class TempIntoViewSet(viewsets.ModelViewSet):
@@ -72,3 +75,17 @@ class QJTempinto(APIView):
             except:
                 pass
         return JsonResponse({"status": "error"})
+
+
+class DeleteInvalidFiles(APIView):
+    # 删除无效的图片：数据库信息已删除，文件系统还存在的
+    def post(self, request):
+        dir = os.path.join(MEDIA_ROOT, "covid19")
+        path = Path(dir)
+        files = [p for p in path.iterdir()]
+        del_count = 0
+        for file in files:
+            if not TempintoFile.objects.filter(file__contains=file.name).exists():
+                os.remove(file.absolute())
+                del_count += 1
+        return JsonResponse({"del_count": del_count})

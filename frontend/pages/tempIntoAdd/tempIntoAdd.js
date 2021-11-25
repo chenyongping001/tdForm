@@ -21,7 +21,7 @@ Page({
     contactPhone: "",
     files: [],
     isHealth: ['否', '是'],
-    days: ['1 天', '2 天', '3 天'],
+    days: ['一天', '二天','三天'],
     isOutProvince: ['否', '是'],
     healthValue: 1,
     daysValue: 0,
@@ -80,8 +80,10 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        const files = res.tempFilePaths.map(n=>({isUploading:false,path:n}))
+        // 添加一个属性isUploading,用来表示是否在上传过程中
         that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
+          files: that.data.files.concat(files)
         });
       }
     })
@@ -89,7 +91,7 @@ Page({
   previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.files // 需要预览的图片http链接列表
+      urls: this.data.files.map(n=>n.path) // 需要预览的图片http链接列表
     })
   },
   bindHealthChange: function (e) {
@@ -102,6 +104,7 @@ Page({
       daysValue: e.detail.value
     })
   },
+  
   bindOutProvinceChange: function (e) {
     this.setData({
       outProvinceValue: e.detail.value
@@ -200,9 +203,6 @@ Page({
     this.setData({
       isSending: true
     })
-    wx.showLoading({
-      title: '提交中...',
-    })
     if (app.globalData.session) {
       that.submit(app.globalData.session)
     }
@@ -221,7 +221,7 @@ Page({
         name: this.data.name,
         iccard: this.data.idcard,
         healthValue: this.data.healthValue,
-        daysValue: this.data.daysValue+1,//前景需要对应
+        daysValue: parseInt(this.data.daysValue)+1,//前景需要对应,注意要用prseInt转换str
         outProvinceValue: this.data.outProvinceValue,
         outCompany: this.data.outCompany,
         project: this.data.project,
@@ -237,16 +237,23 @@ Page({
       success(res) {
         if (res.statusCode === 201) {
           const id = res.data.id
-          const files = that.data.files
-          const length = files.length
+          const length = that.data.files.length
           for (let i = 0; i < length; i++) {
+            const files = that.data.files
+            files[i].isUploading=true
+            that.setData({
+              files:files
+            })
             wx.uploadFile({
-              filePath: that.data.files[i],
+              filePath: that.data.files[i].path,
               name: 'file',
               url: `${app.globalData.BASEURL}/covidform/tempintos/${id}/files/`,
               complete(res) {
+                files[i].isUploading=false
+                that.setData({
+                  files:files
+                })
                 if (i === (length - 1)) {
-                  wx.hideLoading()
                   that.setData({
                     isSending: true
                   })
