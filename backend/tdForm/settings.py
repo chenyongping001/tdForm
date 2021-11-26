@@ -143,7 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 正式环境需要启用
 USE_X_FORWARDED_HOST = True
-FORCE_SCRIPT_NAME = "/tdform"
+FORCE_SCRIPT_NAME = "/tdform_dev"
 
 
 # weixin mini_program appid and secret_key
@@ -153,4 +153,10 @@ WX_MINIPROGRAM_SECRET_KEY = "6fbe861c7b6aef8c4e5d07e45331ba26"
 ##
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 }

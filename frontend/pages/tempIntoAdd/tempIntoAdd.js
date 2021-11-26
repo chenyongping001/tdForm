@@ -216,6 +216,10 @@ Page({
     const that =this
     wx.request({
       url: `${app.globalData.BASEURL}/covidform/tempintos/`,
+      header:{
+        'Authorization':app.globalData.AUTH,
+        'content-type': 'application/json'
+      },
       data: {
         weixinID: session,
         name: this.data.name,
@@ -229,9 +233,6 @@ Page({
         note: this.data.note,
         contact: this.data.contact,
         contactPhone: this.data.contactPhone,
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
       },
       method: "POST",
       success(res) {
@@ -248,6 +249,10 @@ Page({
               filePath: that.data.files[i].path,
               name: 'file',
               url: `${app.globalData.BASEURL}/covidform/tempintos/${id}/files/`,
+              header:{
+                'Authorization':app.globalData.AUTH,
+                'content-type':'multipart/form-data'
+              },
               complete(res) {
                 files[i].isUploading=false
                 that.setData({

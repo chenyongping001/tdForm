@@ -43,6 +43,10 @@ Page({
     const that=this
     wx.request({
       url: `${app.globalData.BASEURL}/covidform/tempintos/?weixinid=${session}`,
+      header:{
+        'Authorization':app.globalData.AUTH,
+        'content-type': 'application/json'
+      },
       success: function (res) {
         if (res.statusCode === 200) {
           let list = res.data
@@ -65,10 +69,11 @@ Page({
           let id = e.currentTarget.dataset.id
           wx.request({
             url: `${app.globalData.BASEURL}/covidform/tempintos/${id}`,
-            method: 'DELETE',
-            header: {
-              'content-type': 'application/json' // 默认值
+            header:{
+              'Authorization':app.globalData.AUTH,
+              'content-type': 'application/json'
             },
+            method: 'DELETE',
             success(res) {
               const list = that.data.tempintoList.filter(item => item.id != id)
               that.setData({

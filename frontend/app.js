@@ -10,6 +10,10 @@ App({
           if (res.code) {
             wx.request({
               url: `${that.globalData.BASEURL}/wxauth/${res.code}`,
+              header:{
+                'Authorization':that.globalData.AUTH,
+                'content-type': 'application/json'
+              },
               success: function (res) {
                 if (res.statusCode === 200) {
                   let session = res.data.session
@@ -29,5 +33,6 @@ App({
   globalData: {
     session: null,
     BASEURL: 'https://www.tzpp.org/tdform',
+    AUTH:'Basic b3V0c2lkZXI6YWJjZDEyMzQs',///outsider用户
   }
 })
