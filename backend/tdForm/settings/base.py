@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -22,11 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-(fb5hq(+jq$5n%^v%j*ff#m!2jg)75%+lu_or*ln!_)bwz@jw*'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -76,19 +71,6 @@ WSGI_APPLICATION = 'tdForm.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
-        'NAME': 'tdform',  # 数据库名，先前创建的
-        'USER': 'root',     # 用户名，可以自己创建用户
-        'PASSWORD': 'abcd1234',  # 密码
-        'HOST': 'localhost',  # mysql服务所在的主机ip
-        'PORT': '3306',         # mysql服务端口
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
@@ -142,8 +124,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 正式环境需要启用
-USE_X_FORWARDED_HOST = True
-FORCE_SCRIPT_NAME = "/tdform_dev"
+# USE_X_FORWARDED_HOST = True
+# FORCE_SCRIPT_NAME = "/tdform_dev"
 
 
 # weixin mini_program appid and secret_key

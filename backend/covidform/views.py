@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from datetime import datetime, timedelta
 from .models import TempInto, TempintoFile
 from .serializers import TempIntoSerializer, TempintoFileSerializer
-from tdForm.settings import MEDIA_ROOT
+from django.conf import settings
 
 
 class TempIntoViewSet(viewsets.ModelViewSet):
@@ -80,7 +80,7 @@ class QJTempinto(APIView):
 class DeleteInvalidFiles(APIView):
     # 删除无效的图片：数据库信息已删除，文件系统还存在的
     def post(self, request):
-        dir = os.path.join(MEDIA_ROOT, "covid19")
+        dir = os.path.join(settings.MEDIA_ROOT, "covid19")
         path = Path(dir)
         files = [p for p in path.iterdir()]
         del_count = 0

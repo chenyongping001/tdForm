@@ -3,7 +3,7 @@ import hashlib
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 
-from tdForm.settings import WX_MINIPROGRAM_APPID, WX_MINIPROGRAM_SECRET_KEY
+from django.conf import settings
 from wxauth.models import WXUser
 
 # Create your views here.
@@ -15,8 +15,8 @@ def index(request):
 
 def wx_auth(request, code):
     wxapi = "https://api.weixin.qq.com/sns/jscode2session?appid={AppId}&secret={AppSecret}&js_code={code}&grant_type=authorization_code".format(
-        AppId=WX_MINIPROGRAM_APPID,
-        AppSecret=WX_MINIPROGRAM_SECRET_KEY,
+        AppId=settings.WX_MINIPROGRAM_APPID,
+        AppSecret=settings.WX_MINIPROGRAM_SECRET_KEY,
         code=code
     )
     try:

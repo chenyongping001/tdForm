@@ -1,5 +1,6 @@
 {
-  "pages":[
+  "pages": [
+    "pages/index/index",
     "pages/load/load",
     "pages/privacyPolicy/privacyPolicy",
     "pages/userAgree/userAgree",
@@ -7,12 +8,15 @@
     "pages/tempIntoAdd/tempIntoAdd",
     "pages/bottomMenu/buttomMenu"
   ],
-  "window":{
+  "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "表单",
     "navigationBarBackgroundColor": "#EDEDED",
     "backgroundColor": "#EDEDED"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui": true
+  }
 }
