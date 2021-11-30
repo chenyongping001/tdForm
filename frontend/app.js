@@ -1,6 +1,12 @@
 // app.js
 App({
-  onLaunch() {},
+  onLaunch() {
+    wx.getSystemInfo({
+      success: (res) => {
+        this.globalData.statusBarHeight = res.statusBarHeight
+      }
+    })
+  },
 
   getSession: function () {
     const that = this
@@ -34,5 +40,6 @@ App({
     session: null,
     BASEURL: 'https://www.tzpp.org/tdform',
     AUTH:'Basic b3V0c2lkZXI6YWJjZDEyMzQs',///outsider用户
-  }
+    statusBarHeight:0,
+  },
 })

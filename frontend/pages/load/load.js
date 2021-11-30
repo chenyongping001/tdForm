@@ -23,8 +23,8 @@ Page({
   },
 
   enter(e){
-    wx.redirectTo({
-      url: '/pages/tempIntoAdd/tempIntoAdd'
+    wx.reLaunch({
+      url: '/pages/index/index',
     })
   },
   /**

@@ -1,13 +1,26 @@
 // pages/index/index.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    tabbarList:[
+      {
+        text:"tab1",
+        iconPath:"/images/user.png",
+        selectedIconPath:"/images/form.png",
+        badge:"2"
+      },
+      {
+        text:"tab2",
+        iconPath:"/images/user.png",
+        selectedIconPath:"/images/form.png",
+        badge:""
+      },
+    ],
+    currentTabbar:0,
   },
-
+  onTabbarChange(e){},
   /**
    * 生命周期函数--监听页面加载
    */

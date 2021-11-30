@@ -6,17 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    formTabTextCol: "black",
-    userTabTextCol: "darkseagreen",
     tempintoList: [],
     status: ['待处理', '找不到对应联系人', '已生成申请单', '审批中', '通过', '拒绝', '已删除'],
     statusColor: ['rgb(165, 82, 10', 'red', 'midnightblue', 'midnightblue', 'lightseagreen', 'red', 'red']
-  },
-  userTabSelect(e) {},
-  formTabSelect(e) {
-    wx.redirectTo({
-      url: '/pages/tempIntoAdd/tempIntoAdd',
-    })
   },
 
   /**
@@ -83,6 +75,12 @@ Page({
           })
         } else if (res.cancel) {}
       }
+    })
+  },
+
+  onBackTap(e){
+    wx.reLaunch({
+      url: '/pages/mine/mine',
     })
   },
   /**

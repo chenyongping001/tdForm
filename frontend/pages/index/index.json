@@ -1,6 +1,5 @@
 {
   "usingComponents": {
-    "mp-form-page": "weui-miniprogram/form-page/form-page",
-    "mp-form": "weui-miniprogram/form/form"
-  }
+  },
+  "navigationBarTitleText": "工作台"
 }

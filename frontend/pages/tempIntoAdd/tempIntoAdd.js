@@ -8,8 +8,6 @@ Page({
    */
   data: {
     isSending: false,
-    formTabTextCol: "darkseagreen",
-    userTabTextCol: "#000000",
     ////////////////////////////////////////////
     name: "",
     idcard: "",
@@ -27,12 +25,6 @@ Page({
     daysValue: 0,
     outProvinceValue: 0,
   },
-  userTabSelect(e) {
-    wx.redirectTo({
-      url: '/pages/myTempInto/myTempInto',
-    })
-  },
-  formTabSelect(e) {},
   onNameInput(e) {
     this.setData({
       name: e.detail.value
@@ -262,7 +254,7 @@ Page({
                   that.setData({
                     isSending: true
                   })
-                  wx.redirectTo({
+                  wx.reLaunch({
                     url: '/pages/myTempInto/myTempInto',
                   })
                 }
@@ -281,6 +273,12 @@ Page({
           })
         }
       },
+    })
+  },
+
+  onBackTap(e){
+    wx.reLaunch({
+      url: '/pages/index/index',
     })
   },
   /**

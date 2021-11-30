@@ -1,4 +1,4 @@
-// pages/bottomMenu/buttonMenu.js
+// pages/mine/mine.js
 Page({
 
   /**
@@ -14,7 +14,13 @@ Page({
   onLoad: function (options) {
 
   },
-
+  onTempIntoTap(e){
+    wx.navigateTo({
+      url: '/pages/myTempInto/myTempInto',
+    })
+  },
+  onOvertimeEnterTap(e){
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

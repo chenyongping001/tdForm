@@ -1,5 +1,56 @@
 <!--pages/index/index.wxml-->
 <!--WXML示例代码-->
-<mp-form-page title="表单结构" subtitle="展示表单页面的信息结构样式, 分别由头部区域/控件区域/提示区域/操作区域和底部信息区域组成。">
-    
-</mp-form-page>
+<page-meta root-font-size="system" />
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__hd grid_color">工作联系</view>
+  </view>
+  <view class="weui-grids" >
+    <navigator class="weui-grid" aria-role="button" url="/pages/tempIntoAdd/tempIntoAdd" open-type="reLaunch">
+      <view class="weui-grid__icon">
+        <image class="weui-grid__icon" src="/images/forms.png" alt></image>
+      </view>
+      <view class="weui-grid__label">无卡临时入厂</view>
+    </navigator>
+    <navigator class="weui-grid" aria-role="button" url="javascript:">
+      <view class="weui-grid__icon">
+        <image class="weui-grid__icon" src="/images/forms.png" alt></image>
+      </view>
+      <view class="weui-grid__label">有卡超时再入厂</view>
+    </navigator>
+    <navigator class="weui-grid" aria-role="button" url="javascript:">
+      <view class="weui-grid__icon">
+        <image class="weui-grid__icon" src="/images/forms.png" alt></image>
+      </view>
+      <view class="weui-grid__label">信息外协管理</view>
+    </navigator>
+  </view>
+  <view class="weui-panel_access">
+    <view class="weui-panel__hd grid_color">职工健康</view>
+  </view>
+  <view class="weui-grids">
+    <navigator class="weui-grid" aria-role="button" url="javascript:">
+      <view class="weui-grid__icon">
+        <image class="weui-grid__icon" src="/images/running.png" alt></image>
+      </view>
+      <view class="weui-grid__label">运动步数</view>
+    </navigator>
+  </view>
+  <view class="weui-panel_access">
+    <view class="weui-panel__hd grid_color">常用工具</view>
+  </view>
+  <view class="weui-grids">
+    <navigator class="weui-grid" aria-role="button" url="javascript:">
+      <view class="weui-grid__icon">
+        <image class="weui-grid__icon" src="/images/forms.png" alt></image>
+      </view>
+      <view class="weui-grid__label">行程卡查询</view>
+    </navigator>
+    <navigator class="weui-grid" aria-role="button" url="javascript:">
+      <view class="weui-grid__icon">
+        <image class="weui-grid__icon" src="/images/forms.png" alt></image>
+      </view>
+      <view class="weui-grid__label">健康码查询</view>
+    </navigator>
+  </view>
+</view>

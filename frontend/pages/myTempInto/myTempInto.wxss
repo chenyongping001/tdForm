@@ -1,1 +1,4 @@
 /* pages/myTempInto/myTempInto.wxss */
+page{
+  background-color: #EFEFEF;
+}
