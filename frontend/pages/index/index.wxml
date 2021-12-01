@@ -12,45 +12,22 @@
       </view>
       <view class="weui-grid__label">无卡临时入厂</view>
     </navigator>
-    <navigator class="weui-grid" aria-role="button" url="javascript:">
+    <navigator class="weui-grid" aria-role="button" url="/pages/overtimeIntoAdd/overtimeIntoAdd">
       <view class="weui-grid__icon">
         <image class="weui-grid__icon" src="/images/forms.png" alt></image>
       </view>
       <view class="weui-grid__label">有卡超时再入厂</view>
-    </navigator>
-    <navigator class="weui-grid" aria-role="button" url="javascript:">
-      <view class="weui-grid__icon">
-        <image class="weui-grid__icon" src="/images/forms.png" alt></image>
-      </view>
-      <view class="weui-grid__label">信息外协管理</view>
-    </navigator>
-  </view>
-  <view class="weui-panel_access">
-    <view class="weui-panel__hd grid_color">职工健康</view>
-  </view>
-  <view class="weui-grids">
-    <navigator class="weui-grid" aria-role="button" url="javascript:">
-      <view class="weui-grid__icon">
-        <image class="weui-grid__icon" src="/images/running.png" alt></image>
-      </view>
-      <view class="weui-grid__label">运动步数</view>
     </navigator>
   </view>
   <view class="weui-panel_access">
     <view class="weui-panel__hd grid_color">常用工具</view>
   </view>
   <view class="weui-grids">
-    <navigator class="weui-grid" aria-role="button" url="javascript:">
+    <navigator class="weui-grid" aria-role="button" target="miniProgram" app-id="wx8f446acf8c4a85f5">
       <view class="weui-grid__icon">
-        <image class="weui-grid__icon" src="/images/forms.png" alt></image>
+        <image class="weui-grid__icon" src="/images/txxck-01.png" alt></image>
       </view>
-      <view class="weui-grid__label">行程卡查询</view>
-    </navigator>
-    <navigator class="weui-grid" aria-role="button" url="javascript:">
-      <view class="weui-grid__icon">
-        <image class="weui-grid__icon" src="/images/forms.png" alt></image>
-      </view>
-      <view class="weui-grid__label">健康码查询</view>
+      <view class="weui-grid__label">通信行程卡</view>
     </navigator>
   </view>
 </view>

@@ -6,7 +6,8 @@
     "pages/privacyPolicy/privacyPolicy",
     "pages/userAgree/userAgree",
     "pages/myTempInto/myTempInto",
-    "pages/tempIntoAdd/tempIntoAdd"
+    "pages/tempIntoAdd/tempIntoAdd",
+    "pages/overtimeIntoAdd/overtimeIntoAdd"
   ],
   "window": {
     "navigationBarTextStyle": "black",
