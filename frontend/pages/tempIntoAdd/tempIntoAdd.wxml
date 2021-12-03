@@ -1,14 +1,14 @@
 <page-meta root-font-size="system" />
 <view class="page" data-weui-theme="{{theme}}">
-    <mp-navigation-bar back="{{false}}" background="#EDEDED">
-      <mp-icon slot='left' icon="back" color="black"  bindtap="onBackTap" size="{{15}}"></mp-icon>
-    </mp-navigation-bar>
+  <mp-navigation-bar back="{{false}}" background="#EDEDED">
+    <mp-icon slot='left' icon="back" color="black" bindtap="onBackTap" size="{{15}}"></mp-icon>
+  </mp-navigation-bar>
 
   <view class="weui-form">
     <form bindsubmit="formSubmit">
       <view class="weui-form__text-area">
         <h2 class="weui-form__title">无卡临时入厂申报</h2>
-        <view class="weui-form__desc">疫情防控需要，外来人员必须上传当天健康码、行程轨迹图以及身份证的附件资料，14天内有外省经历人员还需提供核酸检测报告。表中的临时入厂人员信息用于门岗核实，填报的内容将发送至电厂联系人走流程，请务必准确填写。</view>
+        <view class="weui-form__desc">疫情防控需要，外来人员必须上传当天健康码、行程轨迹图以及身份证的附件资料，14天内有外省经历人员还需提供核酸检测报告,并尽可能上传外来新增人员情况登记表。表中的临时入厂人员信息用于门岗核实，填报的内容将发送至电厂联系人走流程，请务必准确填写。</view>
       </view>
       <view class="weui-form__control-area">
         <view class="weui-cells__group weui-cells__group_form">
@@ -113,7 +113,7 @@
         </view>
 
         <view class="weui-cells__group weui-cells__group_form">
-          <view class="weui-cells__title">健康码、行程卡、身份证、核酸证明等附件({{files.length}})</view>
+          <view class="weui-cells__title">(*)健康码、行程卡、身份证、核酸证明等附件({{files.length}})</view>
           <view class="weui-cells weui-cells_form">
             <view class="weui-cell weui-cell_uploader">
               <view class="weui-cell__bd">
@@ -121,7 +121,7 @@
                   <view class="weui-uploader__bd">
                     <view class="weui-uploader__files" id="uploaderFiles">
                       <block wx:for="{{files}}" wx:key="index">
-                        <view class="weui-uploader__file {{item.isUploading?'weui-uploader__file_status':''}}" bindtap="previewImage" id="{{item.path}}">
+                        <view class="weui-uploader__file {{item.isUploading?'weui-uploader__file_status':''}}" data-index="{{index}}" bindlongpress="deleteImage" bindtap="previewImage" id="{{item.path}}">
                           <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill" />
                           <view hidden="{{!item.isUploading}}" aria-role="alert" class="weui-uploader__file-content">
                             <view aria-role="img" aria-label="上传中" class="weui-loading"></view>
@@ -139,7 +139,13 @@
 
           </view>
         </view>
-
+        <mp-cells title="外来新增人员情况登记表">
+          <view slot="footer" class="weui-cells__title weui-cell_link" bindtap="onTemplateTap">防疫登记表模板</view>
+          <mp-cell>
+            <view class="weui-cells__title">{{filename}}</view>
+            <view slot='title' class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" aria-role="button" bindtap="onAddFiles">选择</view>
+          </mp-cell>
+        </mp-cells>
       </view>
       <view class="weui-form__opr-area">
         <button form-type="submit" disabled="{{isSending}}" class="weui-btn weui-btn_primary">提交</button>

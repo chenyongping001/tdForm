@@ -1,4 +1,4 @@
-// pages/myTempInto/myTempInto.js
+// pages/myOvertimeInto/myOvertimeInto.js
 const app = getApp()
 Page({
 
@@ -6,9 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tempintoList: [],
-    status: ['待处理', '找不到联系人', '已生成申请单', '审批中', '通过', '拒绝', '已删除'],
-    statusColor: ['rgb(165, 82, 10', 'red', 'midnightblue', 'midnightblue', 'lightseagreen', 'red', 'red']
+    overtimeintoList: [],
+    status: ['待处理','无此持卡人','找不到联系人', '已生成申请单', '审批中', '通过',  '已删除'],
+    statusColor: ['rgb(165, 82, 10', 'red', 'red', 'midnightblue', 'midnightblue', 'lightseagreen', 'red'],
+    gateItems:['一号门','厂前区']
   },
 
   /**
@@ -16,10 +17,10 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    var list = wx.getStorageSync("TEMPINTOLIST")
+    var list = wx.getStorageSync("OVERTIMEINTOLIST")
     if (list) { // 本地如果有缓存列表，提前渲染
       that.setData({
-        tempintoList: list
+        overtimeintoList: list
       })
     }
     if (app.globalData.session) {
@@ -34,7 +35,7 @@ Page({
   reDraw(session) {
     const that=this
     wx.request({
-      url: `${app.globalData.BASEURL}/covidform/tempintos/?weixinid=${session}`,
+      url: `${app.globalData.BASEURL}/covidform/overtimeintos/?weixinid=${session}`,
       header:{
         'Authorization':app.globalData.AUTH,
         'content-type': 'application/json'
@@ -43,9 +44,9 @@ Page({
         if (res.statusCode === 200) {
           let list = res.data
           that.setData({ // 再次渲染列表
-            tempintoList: list
+            overtimeintoList: list
           })
-          wx.setStorageSync("TEMPINTOLIST", list) // 覆盖缓存数据
+          wx.setStorageSync("OVERTIMEINTOLIST", list) // 覆盖缓存数据
         }
       }
     })
@@ -60,16 +61,16 @@ Page({
         if (res.confirm) {
           let id = e.currentTarget.dataset.id
           wx.request({
-            url: `${app.globalData.BASEURL}/covidform/tempintos/${id}`,
+            url: `${app.globalData.BASEURL}/covidform/overtimeintos/${id}`,
             header:{
               'Authorization':app.globalData.AUTH,
               'content-type': 'application/json'
             },
             method: 'DELETE',
             success(res) {
-              const list = that.data.tempintoList.filter(item => item.id != id)
+              const list = that.data.overtimeintoList.filter(item => item.id != id)
               that.setData({
-                tempintoList: list
+                overtimeintoList: list
               })
             }
           })

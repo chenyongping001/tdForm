@@ -22,7 +22,7 @@ class TempInto(models.Model):
     ]
     STATUS_CHOICE = [
         (0, '待处理'),
-        (1, '找不到对应联系人'),
+        (1, '找不到联系人'),
         (2, '已生成申请单'),
         (3, '审批中'),
         (4, '通过'),
@@ -52,9 +52,49 @@ class TempInto(models.Model):
 
 
 class TempintoFile(models.Model):
-    file = models.ImageField(upload_to='covid19/')
+    # file = models.ImageField(upload_to='covid19/')
+    file = models.FileField(upload_to='covid19/')
     tempinto = models.ForeignKey(
         TempInto, related_name='files', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return settings.MEDIA_URL+str(self.file)
+
+
+class OvertimeInto(models.Model):
+    GATE_CHOICE = [
+        (1, '一号门'),
+        (2, '厂前区'),
+    ]
+    STATUS_CHOICE = [
+        (0, '待处理'),
+        (1, '无此持卡人'),
+        (2, '找不到联系人'),
+        (3, '已生成申请单'),
+        (4, '审批中'),
+        (5, '通过'),
+        (6, '已删除'),
+    ]
+    weixinID = models.CharField(max_length=255)
+    name = models.CharField(max_length=10)
+    iccard = models.CharField(max_length=18)
+    reason = models.TextField()
+    note = models.TextField(null=True, blank=True)
+    gateValue = models.PositiveSmallIntegerField(
+        choices=GATE_CHOICE, default=1)
+    contact = models.CharField(max_length=10)
+    contactPhone = models.CharField(max_length=11)
+    createtime = models.DateTimeField(auto_now_add=True)
+    last_update = models.DateTimeField(auto_now=True)
+    status = models.PositiveSmallIntegerField(
+        choices=STATUS_CHOICE, default=0)
+
+
+class OvertimeIntoFile(models.Model):
+    # OT代表超时overtime
+    file = models.FileField(upload_to='covid19_OT/')
+    overtimeinto = models.ForeignKey(
+        OvertimeInto, related_name='files', on_delete=models.CASCADE)
 
     def __str__(self):
         return settings.MEDIA_URL+str(self.file)

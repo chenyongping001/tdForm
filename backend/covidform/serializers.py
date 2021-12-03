@@ -1,4 +1,4 @@
-from .models import TempInto, TempintoFile
+from .models import TempInto, TempintoFile, OvertimeInto, OvertimeIntoFile
 from rest_framework import serializers
 
 
@@ -28,6 +28,36 @@ class TempIntoSerializer(serializers.ModelSerializer):
                   "project",
                   "reason",
                   "note",
+                  "contact",
+                  "contactPhone",
+                  "createtime",
+                  "last_update",
+                  "status",
+                  "files"]
+
+
+class OvertimeIntoFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OvertimeIntoFile
+        fields = ['file']
+
+    def create(self, validated_data):
+        overtimeinto_id = self.context['overtimeinto_id']
+        return OvertimeIntoFile.objects.create(overtimeinto_id=overtimeinto_id, **validated_data)
+
+
+class OvertimeIntoSerializer(serializers.ModelSerializer):
+    files = serializers.StringRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = OvertimeInto
+        fields = ["id",
+                  "weixinID",
+                  "name",
+                  "iccard",
+                  "reason",
+                  "note",
+                  "gateValue",
                   "contact",
                   "contactPhone",
                   "createtime",

@@ -24,6 +24,8 @@ Page({
     healthValue: 1,
     daysValue: 0,
     outProvinceValue: 0,
+    files2: [],
+    filename:'',
   },
   onNameInput(e) {
     this.setData({
@@ -65,9 +67,41 @@ Page({
       contactPhone: e.detail.value
     })
   },
+  onAddFiles(e){
+    const that = this
+    wx.chooseMessageFile({
+      count: 1,
+      type: 'file',
+      extension:['doc','docx','xls','xlsx'],
+      success (res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFiles
+        that.setData({
+          filename:tempFilePaths[0].name,
+          files2: [tempFilePaths[0].path]
+        })
+      }
+    })
+  },
+  onTemplateTap(e){
+    wx.downloadFile({
+      url: `${app.globalData.BASEURL}/uploads/example.docx`,
+      success: function (res) {
+        const filePath = res.tempFilePath
+        wx.openDocument({
+          showMenu:true,
+          filePath: filePath,
+          success: function (res) {
+            console.log('打开文档成功')
+          }
+        })
+      }
+    })
+  },
   chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
+      count:6,
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
@@ -84,6 +118,25 @@ Page({
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.files.map(n=>n.path) // 需要预览的图片http链接列表
+    })
+  },
+  deleteImage: function (e) {
+    var that = this;
+    wx.showModal({
+      title: '提示',
+      content: '确定删除图片吗？',
+      success(res) {
+        if (res.confirm) {
+          var files = that.data.files;
+          var index = e.currentTarget.dataset.index;
+          files.splice(index, 1);
+          that.setData({
+            files: files,
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
   },
   bindHealthChange: function (e) {
@@ -174,7 +227,7 @@ Page({
     let msg = ""
     if (count < 3) {
       msg = '必须上传包含身份证|健康码|行程轨迹截图的附件资料,14天内有外省经历人员还需提供核酸检测报告!'
-    } else if (count > 5) {
+    } else if (count > 6) {
       msg = '不要上传过多图片!'
     }
     if (msg) {
@@ -230,6 +283,20 @@ Page({
       success(res) {
         if (res.statusCode === 201) {
           const id = res.data.id
+          //上传登记表
+          if(that.data.files2.length>0){
+            wx.uploadFile({
+              filePath: that.data.files2[0],
+              name: 'file',
+              url: `${app.globalData.BASEURL}/covidform/tempintos/${id}/files/`,
+              header:{
+                'Authorization':app.globalData.AUTH,
+                'content-type':'multipart/form-data'
+              },
+            })
+          }
+
+          //上传图片截图
           const length = that.data.files.length
           for (let i = 0; i < length; i++) {
             const files = that.data.files
@@ -252,7 +319,7 @@ Page({
                 })
                 if (i === (length - 1)) {
                   that.setData({
-                    isSending: true
+                    isSending: false
                   })
                   wx.reLaunch({
                     url: '/pages/myTempInto/myTempInto',
@@ -264,7 +331,7 @@ Page({
         } else {
           wx.hideLoading()
           that.setData({
-            isSending: true
+            isSending: false
           })
           wx.showToast({
             title: "出错了，请稍后！",

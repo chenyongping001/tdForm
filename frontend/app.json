@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/load/load",
+    "pages/overtimeIntoAdd/overtimeIntoAdd",
     "pages/mine/mine",
     "pages/index/index",
     "pages/privacyPolicy/privacyPolicy",
     "pages/userAgree/userAgree",
     "pages/myTempInto/myTempInto",
-    "pages/tempIntoAdd/tempIntoAdd",
-    "pages/overtimeIntoAdd/overtimeIntoAdd"
+    "pages/myOvertimeInto/myOvertimeInto",
+    "pages/tempIntoAdd/tempIntoAdd"
   ],
   "window": {
     "navigationBarTextStyle": "black",
