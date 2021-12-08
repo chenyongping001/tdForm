@@ -74,6 +74,7 @@ class OvertimeInto(models.Model):
         (4, '审批中'),
         (5, '通过'),
         (6, '已删除'),
+        (7, '施工证已过期'),
     ]
     weixinID = models.CharField(max_length=255)
     name = models.CharField(max_length=10)

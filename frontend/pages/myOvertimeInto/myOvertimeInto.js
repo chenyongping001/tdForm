@@ -7,8 +7,8 @@ Page({
    */
   data: {
     overtimeintoList: [],
-    status: ['待处理','无此持卡人','找不到联系人', '已生成申请单', '审批中', '通过',  '已删除'],
-    statusColor: ['rgb(165, 82, 10', 'red', 'red', 'midnightblue', 'midnightblue', 'lightseagreen', 'red'],
+    status: ['待处理','无此持卡人','找不到联系人', '已生成申请单', '审批中', '通过',  '已删除','施工证已过期'],
+    statusColor: ['rgb(165, 82, 10', 'red', 'red', 'midnightblue', 'midnightblue', 'lightseagreen', 'red', 'red'],
     gateItems:['一号门','厂前区']
   },
 

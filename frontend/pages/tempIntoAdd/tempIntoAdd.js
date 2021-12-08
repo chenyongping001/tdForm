@@ -85,7 +85,7 @@ Page({
   },
   onTemplateTap(e){
     wx.downloadFile({
-      url: `${app.globalData.BASEURL}/uploads/example.docx`,
+      url: `${app.globalData.BASEURL}/uploads/example.doc`,
       success: function (res) {
         const filePath = res.tempFilePath
         wx.openDocument({
