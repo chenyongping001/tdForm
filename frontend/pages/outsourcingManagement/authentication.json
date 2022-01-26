@@ -9,5 +9,5 @@
     "mp-checkbox-group": "weui-miniprogram/checkbox-group/checkbox-group",
     "mp-checkbox": "weui-miniprogram/checkbox/checkbox"
   },
-  "navigationBarTitleText": "超时再入厂申报"
+  "navigationBarTitleText": "外协人员身份识别"
 }

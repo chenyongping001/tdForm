@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import requests
 import hashlib
 from django.shortcuts import render
@@ -36,3 +37,31 @@ def wx_auth(request, code):
     if(not WXUser.objects.filter(openid=openid)):
         WXUser.objects.create(openid=openid, session=session)
     return JsonResponse(data)
+
+
+def wx_getPhoneNumber(request, code):
+    wxapi_get_access_token = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={AppId}&secret={AppSecret}".format(
+        AppId=settings.WX_MINIPROGRAM_APPID,
+        AppSecret=settings.WX_MINIPROGRAM_SECRET_KEY
+    )
+    try:
+        response = requests.get(wxapi_get_access_token)
+        if(response.json().get('access_token') == None):
+            raise Exception()
+    except Exception:
+        return JsonResponse({"phone_info": None})
+
+    access_token = response.json().get('access_token')
+    wxapi_get_phonenumber = "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token={ACCESS_TOKEN}".format(
+        ACCESS_TOKEN=access_token
+    )
+
+    # 重要！，一定要传 json={'code': code}，如果传data={'code': code}将出错，折腾了不少时间
+    response = requests.post(
+        wxapi_get_phonenumber,
+        json={'code': code}
+    )
+
+    if(response.json().get('errcode') == 0):
+        return JsonResponse({"phone_info": response.json().get('phone_info')})
+    return JsonResponse({"phone_info": None})

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/outsourcingManagement/authentication",
     "pages/load/load",
     "pages/overtimeIntoAdd/overtimeIntoAdd",
     "pages/mine/mine",

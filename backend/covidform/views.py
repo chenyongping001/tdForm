@@ -18,7 +18,7 @@ class TempIntoViewSet(viewsets.ModelViewSet):
     serializer_class = TempIntoSerializer
 
     def get_queryset(self):
-        queryset = TempInto.objects.all()
+        queryset = TempInto.objects.prefetch_related('files').all()
         status = self.request.query_params.get('status')
         days = self.request.query_params.get('days')
         weixinID = self.request.query_params.get('weixinid')
@@ -49,7 +49,8 @@ class QJTempinto(APIView):
         id = self.request.query_params.get('id')
         status = self.request.query_params.get('status')
         days = self.request.query_params.get('days')
-        queryset = TempInto.objects.all().order_by("-createtime")
+        queryset = TempInto.objects.prefetch_related(
+            'files').all().order_by("-createtime")
         if(id and id.isnumeric()):
             queryset = queryset.filter(id=id)
         if(status and status.isnumeric()):
@@ -80,7 +81,7 @@ class OvertimeIntoViewSet(viewsets.ModelViewSet):
     serializer_class = OvertimeIntoSerializer
 
     def get_queryset(self):
-        queryset = OvertimeInto.objects.all()
+        queryset = OvertimeInto.objects.prefetch_related('files').all()
         status = self.request.query_params.get('status')
         days = self.request.query_params.get('days')
         weixinID = self.request.query_params.get('weixinid')
@@ -111,7 +112,8 @@ class QJOvertimeInto(APIView):
         id = self.request.query_params.get('id')
         status = self.request.query_params.get('status')
         days = self.request.query_params.get('days')
-        queryset = OvertimeInto.objects.all().order_by("-createtime")
+        queryset = OvertimeInto.objects.prefetch_related(
+            'files').all().order_by("-createtime")
         if(id and id.isnumeric()):
             queryset = queryset.filter(id=id)
         if(status and status.isnumeric()):
