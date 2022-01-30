@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/outsourcingManagement/workbookAdd",
+    "pages/outsourcingManagement/outsourcingIndex",
     "pages/outsourcingManagement/authentication",
     "pages/load/load",
     "pages/overtimeIntoAdd/overtimeIntoAdd",
