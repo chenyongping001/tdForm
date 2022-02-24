@@ -38,7 +38,7 @@ App({
 
   globalData: {
     session: null,
-    BASEURL: 'https://www.tzpp.org/tdform_dev',
+    BASEURL: 'https://www.td.masterpeak.cn/tdform',
     AUTH:'Basic b3V0c2lkZXI6YWJjZDEyMzQs',///outsider用户
     statusBarHeight:0,
   },
