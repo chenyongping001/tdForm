@@ -31,7 +31,7 @@
     </navigator>
     <navigator class="weui-grid" aria-role="button" url="/pages/totp/totpIndex">
       <view class="weui-grid__icon">
-        <image class="weui-grid__icon" src="/images/验证码.png" alt></image>
+        <image class="weui-grid__icon" src="/images/yzm.png" alt></image>
       </view>
       <view class="weui-grid__label">动态验证码</view>
     </navigator>

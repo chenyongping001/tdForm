@@ -18,10 +18,9 @@ Page({
    */
   onLoad: function (options) {
     let self = this
-    console.log(options.token_id)
     token_id = options.token_id
     wx.getStorage({
-      key: 'token',
+      key: 'dlgf-totps',
       success: function(res) {
         token = res.data
         let target_token = token[token_id]
@@ -41,7 +40,7 @@ Page({
     token[token_id].remark = values.remark
 
     wx.setStorage({
-      key: 'token',
+      key: 'dlgf-totps',
       data: token,
       success: function(res) {
         wx.navigateBack({

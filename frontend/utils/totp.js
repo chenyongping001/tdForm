@@ -73,16 +73,12 @@ function int_to_bytestring(i, padding = 8) {
 
 // token基于base32加密
 function byte_secret(token) {
-  // console.log(token)
-  // console.log(base32.decode(token))
   return base32.decode(token.toUpperCase())
 }
 
 // 获取当前口令
 function now(token) {
   let timenow = timecode(new Date())
-  // console.log(token.indexOf("0"))
-  // 检查base32加密后的token是否包含异常字符
   if (token.indexOf("0") >= 0
     || token.indexOf("1") >= 0
     || token.indexOf("8") >= 0
